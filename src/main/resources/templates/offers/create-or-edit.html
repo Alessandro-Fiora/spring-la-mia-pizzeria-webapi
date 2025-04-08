@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <th:block th:replace="~{fragments/resources :: styling}" />
+    <title>Pizzeria</title>
+  </head>
+  <body>
+    <header>
+      <th:block th:replace="~{fragments/navbar}" />
+    </header>
+    <main>
+      <div class="container">
+        <section class="my-5">
+          <h1 class="mb-3">
+            Offerta [[${offer.titolo}]] per la pizza
+            [[${offer.getPizza().getNome()}]]
+          </h1>
+          <form
+            th:action="${edit} ? @{/offers/edit/{id} (id=*{id})} : @{/offers/create}"
+            th:object="${offer}"
+            method="post"
+          >
+            <input type="hidden" th:field="*{pizza}" id="input-pizza" />
+
+            <div class="mb-3">
+              <label for="titolo" class="form-label">Titolo:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="titolo"
+                th:field="*{titolo}"
+                th:errorClass="is-invalid"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('titolo')}"
+              >
+                <ul>
+                  <li
+                    th:each="error : ${#fields.errors('titolo')}"
+                    th:text="${error}"
+                  ></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="dataInizio" class="form-label">Data di inizio:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dataInizio"
+                th:field="*{dataInizio}"
+                th:errorClass="is-invalid"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('dataInizio')}"
+              >
+                <ul>
+                  <li
+                    th:each="error : ${#fields.errors('dataInizio')}"
+                    th:text="${error}"
+                  ></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="dataFine" class="form-label">Data di fine:</label>
+              <input
+                type="date"
+                class="form-control"
+                id="dataFine"
+                th:field="*{dataFine}"
+                th:errorClass="is-invalid"
+              />
+              <div
+                class="invalid-feedback"
+                th:if="${#fields.hasErrors('dataFine')}"
+              >
+                <ul>
+                  <li
+                    th:each="error : ${#fields.errors('dataFine')}"
+                    th:text="${error}"
+                  ></li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="div d-flex justify-content-between">
+              <button type="submit" class="btn btn-primary">
+                Salva offerta
+              </button>
+              <button type="reset" class="btn btn-warning">
+                Reset dei campi
+              </button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+
+    <th:block th:replace="~{fragments/resources :: bootstrapJs}"></th:block>
+  </body>
+</html>
