@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,13 +44,12 @@ public class Pizza implements Serializable {
     @Min(value = 0, message = "prezzo cannot be negative")
     private BigDecimal prezzo;
 
-    @OneToMany(mappedBy = "pizza", cascade = (CascadeType.REMOVE))
+    @OneToMany(mappedBy = "pizza", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Offer> offers;
 
-    @ManyToMany()
-    @JoinTable(name = "ingredient_pizza",
-            joinColumns = @JoinColumn(name = "pizza_id"),
-            inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Ingredient> ingredients;
 
     public Integer getId() {

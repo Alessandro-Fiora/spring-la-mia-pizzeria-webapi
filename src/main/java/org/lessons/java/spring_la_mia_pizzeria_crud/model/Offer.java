@@ -3,7 +3,10 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 import java.io.Serializable;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,9 +35,9 @@ public class Offer implements Serializable{
     @FutureOrPresent(message = "dataFine cannot be set in the past")
     private LocalDate dataFine;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pizza_id")
-    @NotNull(message = "pizza must not be null")
+    @JsonBackReference
     private Pizza pizza;
 
     public Integer getId() {

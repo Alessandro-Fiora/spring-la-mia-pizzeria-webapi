@@ -2,7 +2,10 @@ package org.lessons.java.spring_la_mia_pizzeria_crud.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
@@ -20,7 +23,8 @@ public class Ingredient {
     @NotBlank(message = "nome must not be null, empty or blank")
     private String nome;
 
-    @ManyToMany(mappedBy = "ingredients")
+    @ManyToMany(mappedBy = "ingredients", fetch = FetchType.LAZY)
+    @JsonBackReference
     private List<Pizza> pizzas;
 
 
