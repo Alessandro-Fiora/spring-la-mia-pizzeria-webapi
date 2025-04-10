@@ -47,9 +47,8 @@ public class PizzaRestController {
 
     @PostMapping
     public ResponseEntity<Pizza> store(@RequestBody Pizza pizza) {
-
         return new ResponseEntity<Pizza>(pizzaService.create(pizza), HttpStatus.CREATED);
-    }
+}
 
     @PutMapping("/{id}")
     public ResponseEntity<Pizza> update(@PathVariable Integer id, @RequestBody Pizza pizza) {

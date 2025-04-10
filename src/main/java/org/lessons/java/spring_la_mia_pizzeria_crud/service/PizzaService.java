@@ -7,6 +7,7 @@ import org.lessons.java.spring_la_mia_pizzeria_crud.model.Pizza;
 import org.lessons.java.spring_la_mia_pizzeria_crud.repo.PizzaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class PizzaService {
@@ -36,11 +37,11 @@ public class PizzaService {
     }
 
     public Pizza create(Pizza pizza) {
+        
         return pizzaRepository.save(pizza);
     }
 
     public Pizza update(Pizza pizza) {
-
         return pizzaRepository.save(pizza);
     }
 
